@@ -450,6 +450,7 @@
       </collision>
     </link>
   <joint name="pg70_finger_right_joint" type="prismatic">
+    <mimic joint="${pg70_finger_left_joint" multiplier="1" offset="0"/>
 
     <parent link="pg70_palm_link"/>
     <child link="pg70_finger_right_link"/>
