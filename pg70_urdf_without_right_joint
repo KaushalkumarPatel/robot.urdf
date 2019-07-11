@@ -407,7 +407,7 @@
   <joint name="pg70_finger_left_joint" type="prismatic">
     <parent link="pg70_palm_link"/>
     <child link="pg70_finger_left_link"/>
-    <limit effort="100" lower="-0.001" upper="0.04" velocity="2.0"/>
+    <limit effort="100" lower="0.001" upper="0.02" velocity="2.0"/>
     <origin xyz="0 0 0.0789" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
   </joint>
