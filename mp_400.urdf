@@ -64,11 +64,12 @@
   <!--++++++++++++++++++++++++++++++base_link++++++++++++++++++++++++++++++++++++++++++++++++++++-->
   <!--++++++++++++++++++++body++++++++++++++++++++++++++++-->
   <link name="base_link">
-    <inertial>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <!--inertial>
       <mass value="30"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+
       <inertia ixx="1.71402" ixy="0.0" ixz="0.0" iyy="0.8856" iyz="0.0" izz="2.5725"/>
-    </inertial>
+    </inertial-->
     <visual name="body">
       <origin rpy="0 0 1.57" xyz="0.0 0.0 0."/>
       <geometry>
@@ -298,196 +299,155 @@
       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
-  <!--+++++++++++++++++++ Ultra Sonic ++++++++++++++++++++++++-->
-  <!-- SENSOR 1 -->
-  <!-- xacro:us_sensor name="us_1" parent="base_link">
-    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 2 -->
-  <!-- xacro:us_sensor name="us_2" parent="base_link">
-    <origin xyz="0.110 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 3 -->
-  <!-- xacro:us_sensor name="us_3" parent="base_link">
-    <origin xyz="0.120 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 4 -->
-  <!-- xacro:us_sensor name="us_4" parent="base_link">
-    <origin xyz="0.130 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 5 -->
-  <!-- xacro:us_sensor name="us_5" parent="base_link">
-    <origin xyz="0.140 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 6 -->
-  <!-- xacro:us_sensor name="us_6" parent="base_link">
-    <origin xyz="0.150 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 7 -->
-  <!-- xacro:us_sensor name="us_7" parent="base_link">
-    <origin xyz="0.160 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 8 -->
-  <!-- xacro:us_sensor name="us_8" parent="base_link">
-    <origin xyz="0.170 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 9 -->
-  <!-- xacro:us_sensor name="us_9" parent="base_link">
-    <origin xyz="0.180 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 10 -->
-  <!-- xacro:us_sensor name="us_10" parent="base_link">
-    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 11 -->
-  <!-- xacro:us_sensor name="us_11" parent="base_link">
-    <origin xyz="0.100 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 12 -->
-  <!-- xacro:us_sensor name="us_12" parent="base_link">
-    <origin xyz="0.190 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 13 -->
-  <!-- xacro:us_sensor name="us_13" parent="base_link">
-    <origin xyz="0.200 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 14 -->
-  <!-- xacro:us_sensor name="us_14" parent="base_link">
-    <origin xyz="0.210 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 15 -->
-  <!-- xacro:us_sensor name="us_15" parent="base_link">
-    <origin xyz="0.220 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
-  <!-- SENSOR 16 -->
-  <!-- xacro:us_sensor name="us_16" parent="base_link">
-    <origin xyz="0.230 0 0.300" rpy="0 3.14 3.14" />
-  </xacro:us_sensor-->
+
+  <material name="Schunk/LightGrey">
+    <color rgba="0.7 0.7 0.7 1.0"/>
+  </material>
+  <material name="Schunk/DarkGrey">
+    <color rgba="0.4 0.4 0.4 1.0"/>
+  </material>
+  <material name="Schunk/Black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="Schunk/DarkGolden">
+    <color rgba="0.4 0.4 0.3 1.0"/>
+  </material>
+  <material name="Schunk/Blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <!--pg70 gripper -->
+  <!-- schunk lwa4p -->
+  <gazebo>
+    <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
+      <robotNamespace>gripper</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
+    </plugin>
+  </gazebo>
+  <!-- Used for fixing robot to Gazebo -->
 
 
-  <!--+++++++++++++++++++laserscanner_back_joint++++++++++++++++++++++++-->
-  <joint name="laserscanner_back_joint" type="fixed">
-    <axis xyz="0 1 0"/>
-    <origin rpy="3.14 0 3.14" xyz="-0.354 0 0.110"/>
+    <link name="my_box">
+      <inertial>
+        <origin xyz="0 0 0.0145"/>
+        <mass value="0.1" />
+        <inertia  ixx="0.0001" ixy="0.0"  ixz="0.0"  iyy="0.0001"  iyz="0.0"  izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="-0.23 0 0.215"/>
+        <geometry>
+          <box size="0.05 0.05 0.3"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.23 0 0.215"/>
+        <geometry>
+          <box size="0.37 0.05 0.3"/>
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="my_box">
+      <material>Gazebo/Wood</material>
+    </gazebo>
+    <gazebo>
+      <static>true</static>
+    </gazebo>
+
+    <link name="my_box_1">
+      <inertial>
+        <origin xyz="0 0 0.0145"/>
+        <mass value="0.1" />
+        <inertia  ixx="0.0001" ixy="0.0"  ixz="0.0"  iyy="0.0001"  iyz="0.0"  izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="-0.23 0 0.215"/>
+        <geometry>
+          <box size="0.05 0.05 0.3"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.23 0 0.215"/>
+        <geometry>
+          <box size="0.05 0.05 0.3"/>
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="my_box">
+      <material>Gazebo/Wood</material>
+    </gazebo>
+    <gazebo>
+      <static>true</static>
+    </gazebo>
+
+    <joint name="My_box_bottom_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0.23 0 0.315"/>
+      <parent link="base_link"/>
+      <child link="my_box"/>
+    </joint>
+
+    <joint name="My_box_bottom_joint_1" type="fixed">
+      <origin rpy="0 0 0" xyz="0.37 0 0.340"/>
+      <parent link="base_link"/>
+      <child link="my_box_1"/>
+    </joint>
+
+    <joint name="camera_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.22 0 0.365"/>
+      <parent link="my_box_1"/>
+      <child link="camera_link"/>
+    </joint>
+
+  <!-- arm -->
+  <!-- joint between base_link and lwa4p_extended_connector_link -->
+  <joint name="arm_podest_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.7"/>
     <parent link="base_link"/>
-    <child link="laserscanner_back_link"/>
+    <child link="arm_podest_link"/>
   </joint>
-  <!--+++++++++++++++++++laserscanner_back_link++++++++++++++++++++++++-->
-  <link name="laserscanner_back_link" type="laser">
+  <link name="arm_podest_link">
     <inertial>
-      <mass value="0.001"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 -1.57" xyz="0 0 0"/>
+      <origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/mp400/sick_s300.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_base_link.stl"/>
       </geometry>
-      <material name="Neobotix/Yellow"/>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.154" radius="0.053"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_base_link.stl"/>
       </geometry>
     </collision>
   </link>
-
-  <!--+++++++++++++++++++laserscanner_front_joint++++++++++++++++++++++++-->
-  <joint name="laserscanner_front_joint" type="fixed">
-    <axis xyz="0 1 0"/>
-    <origin rpy="3.14 0 0" xyz="0.230 0 0.110"/>
-    <parent link="base_link"/>
-    <child link="laserscanner_front_link"/>
+  <joint name="arm_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.10"/>
+    <parent link="arm_podest_link"/>
+    <child link="arm_base_link"/>
   </joint>
-  <!--+++++++++++++++++++laserscanner_front_link++++++++++++++++++++++++-->
-  <link name="laserscanner_front_link" type="laser">
+  <link name="arm_base_link">
     <inertial>
-      <mass value="0.001"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <visual>
-      <origin rpy="0 0 -1.57" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://mp400_description/meshes/mp400/sick_s300.stl"/>
-      </geometry>
-      <material name="Neobotix/Yellow"/>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.154" radius="0.053"/>
-      </geometry>
-    </collision>
   </link>
-
-  <joint name="baselink_to_arm_mount" type="fixed">
-    <parent link="base_link"/>
-    <child link="arm_mount"/>
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.222"/>
-  </joint>
-  <!--+++++++++++++++++arm_mount_link+++++++++++++++++++-->
-  <link name="arm_mount">
-    <visual>
-      <geometry>
-        <box size="0.45 0.45 0.01"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0.025 0 0.223"/>
-      <material name="Schunk/LightGrey"/>
-    </visual>
-  </link>
-  <link name="schunk_base_link">
-    <origin rpy="0 0 0" xyz="0 0 3.14"/>
-  </link>
-  <joint name="arm_robot_joint" type="fixed">
-    <parent link="arm_mount"/>
-    <child link="schunk_base_link"/>
-    <origin rpy="0 0 0" xyz="0.025 0 0.4"/>
-  </joint>
-
-
-
-  <joint name="arm_0_joint" type="fixed">
-    <origin rpy="0 0 0.1" xyz="0 0 0"/>
-    <parent link="schunk_base_link"/>
-    <child link="arm_0_link"/>
-  </joint>
-  <link name="arm_0_link">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.29364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_0_link.dae"/>
-      </geometry>
-      <material name="Schunk/DarkGrey"/>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_0_link.stl"/>
-      </geometry>
-    </collision>
-  </link>
+  <!-- joint between arm_0_link and arm_1_link -->
   <joint name="arm_1_joint" type="revolute">
-    <origin rpy="0 0 0" xyz="0 0 0.11"/>
-    <parent link="arm_0_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="arm_base_link"/>
     <child link="arm_1_link"/>
     <axis xyz="0 0 1"/>
-    <calibration rising="2.1"/>
-    <limit effort="300" lower="-2.95" upper="2.95" velocity="1.25"/>
+    <limit effort="370" lower="-2.94" upper="2.94" velocity="2.0"/>
+    <!--safety_controller k_position="20" k_velocity="50" soft_lower_limit="${-6.28 + 0.01}" soft_upper_limit="${6.28 - 0.01}" /-->
   </joint>
-  <!-- eff = "370" -->
   <link name="arm_1_link">
     <inertial>
-      <mass value="0.29364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
     <!--
       <inertial>
@@ -499,14 +459,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_1_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_1_link.stl"/>
       </geometry>
-      <material name="Schunk/DarkGrey"/>
+      <material name="Schunk/Blue"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_1_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_1_link.stl"/>
       </geometry>
     </collision>
   </link>
@@ -516,33 +476,33 @@
     <parent link="arm_1_link"/>
     <child link="arm_2_link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="250" lower="-2.95" upper="2.95" velocity="1.25"/>
-    <!-- This is useful when the arm is mounted standing on a table -->
-    <!-- <safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-1.9 + safety_offset}" soft_upper_limit="${1.9 - safety_offset}" /> -->
+    <limit effort="370" lower="-2.94" upper="2.94" velocity="2.0"/>
+    <!--safety_controller k_position="20" k_velocity="50" soft_lower_limit="${-2.09 + 0.01}" soft_upper_limit="${2.09 - 0.01}" /-->
   </joint>
-  <!-- eff = "370" -->
   <link name="arm_2_link">
     <inertial>
-      <mass value="0.29364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <!--<inertial>
+    <!--
+      <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1.68311"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
-      </inertial>-->
+      </inertial>
+-->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_2_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_2_link.stl"/>
       </geometry>
-      <material name="Schunk/Blue"/>
+      <material name="Schunk/LightGrey"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_2_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_2_link.stl"/>
       </geometry>
     </collision>
   </link>
@@ -552,28 +512,33 @@
     <parent link="arm_2_link"/>
     <child link="arm_3_link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="200" lower="-2.95" upper="2.95" velocity="1.25"/>
-    <!--<safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-2.7+ safety_offset}" soft_upper_limit="${2.7 - safety_offset}" />-->
+    <limit effort="176" lower="-2.68" upper="2.68" velocity="2.0"/>
+    <!--safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-6.28 + 0.01}" soft_upper_limit="${6.28 - 0.01}" /-->
   </joint>
-  <!-- eff = "176" -->
   <link name="arm_3_link">
-    <!-- <xacro:default_inertial mass="0.29364"/> 2.1-->
     <inertial>
-      <origin rpy="0 0 1.5708" xyz="0 0 0"/>
-      <mass value="0.29364"/>
-      <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
+    <!--
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2.1"/>
+        <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
+      </inertial>
+-->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_3_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_3_link.stl"/>
       </geometry>
-      <material name="Schunk/DarkGrey"/>
+      <material name="Schunk/Blue"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_3_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_3_link.stl"/>
       </geometry>
     </collision>
   </link>
@@ -583,32 +548,33 @@
     <parent link="arm_3_link"/>
     <child link="arm_4_link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="150" lower="-2.95" upper="2.95" velocity="1.25"/>
+    <limit effort="176" lower="-2.94" upper="2.94" velocity="2.0"/>
+    <!--safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-2.09 + 0.01}" soft_upper_limit="${2.09 - 0.01}" /-->
   </joint>
-  <!-- eff = "176" -->
   <link name="arm_4_link">
     <inertial>
-      <mass value="0.19364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <!-- 0.29364 -->
-    <!--<inertial>
+    <!--
+      <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1.68311"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
-      </inertial>-->
+      </inertial>
+-->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_4_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_4_link.stl"/>
       </geometry>
-      <material name="Schunk/Blue"/>
+      <material name="Schunk/LightGrey"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_4_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_4_link.stl"/>
       </geometry>
     </collision>
   </link>
@@ -618,32 +584,33 @@
     <parent link="arm_4_link"/>
     <child link="arm_5_link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="100" lower="-2.95" upper="2.95" velocity="1.25"/>
+    <limit effort="41.6" lower="-2.94" upper="2.94" velocity="2.0"/>
+    <!--safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-6.28 + 0.01}" soft_upper_limit="${6.28 - 0.01}" /-->
   </joint>
-  <!-- eff = "41.6" -->
   <link name="arm_5_link">
     <inertial>
-      <mass value="0.15364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <!-- 0.29364 -->
-    <!--<inertial>
+    <!--
+      <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.807"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
-      </inertial>-->
+      </inertial>
+-->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_5_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_5_link.stl"/>
       </geometry>
-      <material name="Schunk/DarkGrey"/>
+      <material name="Schunk/Blue"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_5_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_5_link.stl"/>
       </geometry>
     </collision>
   </link>
@@ -653,293 +620,298 @@
     <parent link="arm_5_link"/>
     <child link="arm_6_link"/>
     <axis xyz="0 0 1"/>
-    <limit effort="50" lower="-2.947" upper="2.947" velocity="1.25"/>
+    <limit effort="20.1" lower="-2.94" upper="2.94" velocity="2.0"/>
     <!--safety_controller k_position="20" k_velocity="25" soft_lower_limit="${-2.09 + 0.01}" soft_upper_limit="${2.09 - 0.01}" /-->
   </joint>
   <link name="arm_6_link">
     <inertial>
-      <mass value="0.10364"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
-    <!-- 0.29364 -->
-    <!--<inertial>
+    <!--
+      <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.819"/>
         <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
-      </inertial>-->
+      </inertial>
+-->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_6_link.dae"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_6_link.stl"/>
       </geometry>
-      <material name="Schunk/DarkGrey"/>
+      <material name="Schunk/LightGrey"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://mp400_description/meshes/lwa4p/arm_6_link.stl"/>
+        <mesh filename="package://schunk_description/meshes/lwa4p/arm_6_link.stl"/>
       </geometry>
     </collision>
   </link>
-  <!-- joint between arm_6_link and tcp_link -->
-  <!--<joint name="${name}_tcp_joint" type="fixed">
-      <origin xyz="0 0 0.08" rpy="0 0 0" />
-      <parent link="${name}_6_link"/>
-      <child link="${name}_tcp_link"/>
-    </joint>
-    <link name="${name}_tcp_link">
-    </link>-->
+  <!-- extensions -->
   <gazebo reference="arm_0_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/DarkGrey"/>
+    <material value="Schunk/LightGrey"/>
   </gazebo>
   <gazebo reference="arm_1_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/DarkGrey"/>
+    <material value="Schunk/Blue"/>
   </gazebo>
   <gazebo reference="arm_2_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/Blue"/>
+    <material value="Schunk/LightGrey"/>
   </gazebo>
   <gazebo reference="arm_3_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/DarkGrey"/>
+    <material value="Schunk/Blue"/>
   </gazebo>
   <gazebo reference="arm_4_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/Blue"/>
+    <material value="Schunk/LightGrey"/>
   </gazebo>
   <gazebo reference="arm_5_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/DarkGrey"/>
+    <material value="Schunk/Blue"/>
   </gazebo>
   <gazebo reference="arm_6_link">
     <gravity>true</gravity>
     <self_collide>false</self_collide>
-    <material value="Schunk/DarkGrey"/>
+    <material value="Schunk/LightGrey"/>
   </gazebo>
   <transmission name="arm_1_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_1_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_1_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="arm_2_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_2_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_2_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="arm_3_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_3_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_3_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="arm_4_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_4_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_4_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="arm_5_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_5_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_5_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="arm_6_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_6_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <!--<hardwareInterface>PositionJointInterface</hardwareInterface>
-        <hardwareInterface>VelocityJointInterface</hardwareInterface>-->
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="arm_6_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <material name="aluminum">
-    <color rgba="0.5 0.5 0.5 1"/>
-  </material>
-
   <joint name="pg70_palm_joint" type="fixed">
-      <parent link="arm_6_link" />
-      <child link="pg70_palm_link" />
-      <origin rpy="0 0 0" xyz="0 0 0.075" />
+    <parent link="arm_6_link"/>
+    <child link="pg70_palm_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.075"/>
   </joint>
   <link name="pg70_palm_link">
-      <visual>
-          <geometry>
-              <mesh filename="package://schunk_description/meshes/pg70/pg70.dae" />
-          </geometry>
-          <material name="blue">
-              <color rgba="0 0 1 1" />
-          </material>
-      </visual>
-      <collision>
-          <geometry>
-              <mesh filename="package://schunk_description/meshes/pg70/pg70.dae" />
-          </geometry>
-          <material name="blue">
-              <color rgba="0 0 1 1" />
-          </material>
-      </collision>
-
-<inertial>
-          <mass value="0.1" />
-          <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
-      </inertial>
-
+    <visual>
+      <geometry>
+        <mesh filename="package://schunk_description/meshes/pg70/pg70.dae"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://schunk_description/meshes/pg70/pg70.dae"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </collision>
   </link>
   <joint name="pg70_finger_left_joint" type="prismatic">
-      <parent link="pg70_palm_link" />
-      <child link="pg70_finger_left_link" />
-      <limit effort="100" lower="-0.001" upper="0.04" velocity="2.0" />
-      <origin xyz="0 0 0.0789" rpy="0 0 0" />
-      <axis xyz="0 1 0" />
+    <parent link="pg70_palm_link"/>
+    <child link="pg70_finger_left_link"/>
+    <limit effort="100" lower="-0.001" upper="0.04" velocity="2.0"/>
+    <origin xyz="0 0 0.0789" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
   </joint>
   <link name="pg70_finger_left_link">
-      <visual>
-          <geometry>
-              <box size="0.03 0.01 0.01" />
-          </geometry>
-          <material name="black">
-              <color rgba="0 0 0 1" />
-          </material>
-      </visual>
-      <collision>
-          <geometry>
-              <box size="0.03 0.01 0.01" />
-          </geometry>
-          <material name="black" />
-      </collision>
-
-<inertial>
-          <mass value="0.1" />
-          <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
-      </inertial>
-
+    <visual>
+      <geometry>
+        <box size="0.03 0.01 0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.03 0.01 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </collision>
   </link>
-  <joint name="pg70_fingertip_left_joint" type="fixed">
+  <joint name="pg70_fingertip_left_joint" type="fixed" >
       <parent link="pg70_finger_left_link" />
       <child link="pg70_fingertip_left_link" />
-      <origin xyz="0 0.01 0.045" rpy="0 0 0" />
-  </joint>
-  <link name="pg70_fingertip_left_link">
+      <origin xyz="0 0.01 0.045" rpy="0 0 0"/>
+    </joint>
+
+    <link name="pg70_fingertip_left_link">
       <visual>
-          <geometry>
-              <box size="0.03 0.01 0.1" />
-          </geometry>
-          <material name="silver">
-              <color rgba="0.8 0.8 0.8 1" />
-          </material>
+        <geometry>
+          <box size="0.03 0.01 0.1"/>
+        </geometry>
+        <material name="silver">
+          <color rgba="0.8 0.8 0.8 1"/>
+        </material>
       </visual>
       <collision>
-          <geometry>
-              <box size="0.03 0.01 0.1" />
-          </geometry>
-          <material name="black" />
+        <geometry>
+          <box size="0.03 0.01 0.1"/>
+        </geometry>
+	<material name="black"/>
       </collision>
+    </link>
+  <joint name="pg70_finger_right_joint" type="prismatic">
+    <mimic joint="pg70_finger_left_joint" multiplier="1" offset="0"/>
 
-<inertial>
-          <mass value="0.1" />
-          <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
-      </inertial>
-
+    <parent link="pg70_palm_link"/>
+    <child link="pg70_finger_right_link"/>
+    <limit effort="100" lower="-0.001" upper="0.04" velocity="2.0"/>
+    <origin xyz="0 0 0.0789" rpy="-0 0 0"/>
+    <axis xyz="0 -1 0"/>
+  </joint>
+  <link name="pg70_finger_right_link">
+    <visual>
+      <geometry>
+        <box size="0.03 0.01 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.03 0.01 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </collision>
   </link>
 
+  <joint name="pg70_fingertip_right_joint" type="fixed" >
+      <parent link="pg70_finger_right_link" />
+      <child link="pg70_fingertip_right_link" />
+      <origin xyz="0 -0.01 0.045" rpy="0 0 0"/>
+   </joint>
 
+    <link name="pg70_fingertip_right_link">
+      <visual>
+        <geometry>
+          <box size="0.03 0.01 0.1"/>
+        </geometry>
+	<material name="silver" />
+
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.03 0.01 0.1"/>
+        </geometry>
+	<material name="black"/>
+     </collision>
+    </link>
   <!-- extensions -->
   <gazebo reference="pg70_palm_link">
-      <gravity>true</gravity>
-      <self_collide>false</self_collide>
-      <material>Schunk/LightGrey</material>
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+    <material>Schunk/LightGrey</material>
   </gazebo>
   <gazebo reference="pg70_finger_left_link">
-      <gravity>true</gravity>
-      <self_collide>false</self_collide>
-      <material>Schunk/LightGrey</material>
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+    <material>Schunk/LightGrey</material>
   </gazebo>
   <gazebo reference="pg70_finger_right_link">
-      <gravity>true</gravity>
-      <self_collide>false</self_collide>
-      <material>Schunk/LightGrey</material>
+    <gravity>true</gravity>
+    <self_collide>false</self_collide>
+    <material>Schunk/LightGrey</material>
   </gazebo>
   <!-- finger1 -->
   <transmission name="pg70_finger_left_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="pg70_finger_left_joint">
-          <hardwareInterface>EffortJointInterface</hardwareInterface>
-          <hardwareInterface>PositionJointInterface</hardwareInterface>
-          <hardwareInterface>VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="pg70_finger_left_motor">
-          <mechanicalReduction>0.5</mechanicalReduction>
-      </actuator>
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pg70_finger_left_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="pg70_finger_left_motor">
+      <mechanicalReduction>0.5</mechanicalReduction>
+    </actuator>
   </transmission>
   <!-- finger2 - mimic -->
-
+  <transmission name="pg70_finger_right_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pg70_finger_right_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="pg70_finger_right_motor">
+      <mechanicalReduction>0.5</mechanicalReduction>
+    </actuator>
+  </transmission>
   <!-- gazebo_plugin for arm -->
   <gazebo>
-      <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
-          <robotNamespace>arm</robotNamespace>
-          <filterJointsParam>joint_names</filterJointsParam>
-      </plugin>
-
-      <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
-          <robotNamespace>gripper</robotNamespace>
-          <filterJointsParam>joint_names</filterJointsParam>
+    <plugin filename="libhwi_switch_gazebo_ros_control.so" name="ros_control">
+      <robotNamespace>arm</robotNamespace>
+      <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
 
   <!-- camera body, with origin at bottom screw mount -->
-  <joint name="camera_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.2 0 0"/>
-    <parent link="schunk_base_link"/>
-    <child link="camera_link"/>
-  </joint>
+
   <link name="camera_link">
     <visual>
-      <origin rpy="0.77079632679 0 1.57079632679" xyz="0.0149 0.0 0.0125"/>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="0.0149 0.0 0.0125"/>
       <!--<origin xyz="-0.25 0.0 1.425" rpy="${M_PI/2} 0 ${-M_PI/2}"/>-->
       <geometry>
         <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
@@ -1017,7 +989,6 @@
     <child link="camera_color_optical_frame"/>
   </joint>
   <link name="camera_color_optical_frame"/>
-
 
 
 </robot>
